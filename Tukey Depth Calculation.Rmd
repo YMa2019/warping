@@ -1,0 +1,13 @@
+---
+title: "Calculate Tukey Depth"
+output: html_document
+date: "2023-04-10"
+---
+
+```{r}
+library(ddalpha)
+library(mvtnorm)
+x=read.table('pca_d2_Gau_Half.dat')
+depth = depth.halfspace(x, x, exact = F)
+write.csv(cbind(x, depth), "out_d2_Lap_Half.csv")
+```
