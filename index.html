@@ -334,6 +334,75 @@
         font-size: 1.9rem;
       }
     }
+
+    /* Application figure cards */
+    .application-figure-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 24px;
+    }
+    
+    .application-figure-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(47, 93, 80, 0.08);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    
+    .application-figure-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 34px rgba(47, 93, 80, 0.14);
+    }
+    
+    .application-figure-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: contain;
+      background: #f7faf9;
+      border-bottom: 1px solid var(--border);
+      padding: 12px;
+    }
+    
+    .application-figure-content {
+      padding: 18px 18px 20px;
+    }
+    
+    .application-figure-content h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+      color: #111827;
+    }
+    
+    .application-figure-content p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
+    
+    .application-note {
+      margin-top: 24px;
+      padding: 18px 20px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #f4faf7, #ffffff);
+      border: 1px solid #d9ebe4;
+      color: #304b43;
+      font-size: 0.98rem;
+    }
+    
+    /* Mobile layout */
+    @media (max-width: 900px) {
+      .application-figure-grid {
+        grid-template-columns: 1fr;
+      }
+    
+      .application-figure-card img {
+        height: auto;
+      }
+    }
     
     footer {
       margin-top: 60px;
@@ -568,54 +637,87 @@
 
     <section id="applications">
       <h2>Applications in the Paper</h2>
-
-      <div class="grid">
-        <div class="card">
-          <h3>Stochastic Simulation</h3>
-          <p>
-            The framework generates warping functions under Gaussian, Laplacian, uniform,
-            and other stochastic coefficient distributions.
-          </p>
+    
+      <p>
+        The framework is demonstrated through simulation studies, functional PCA modeling,
+        penalized registration, functional boxplots, and real temporal-growth data analysis.
+        The figures below help show how the statistical representation is used in practice.
+      </p>
+    
+      <div class="application-figure-grid">
+    
+        <div class="application-figure-card">
+          <img src="assets/app_simulation.png" alt="Stochastic simulation of time-warping functions" />
+          <div class="application-figure-content">
+            <h3>Stochastic Simulation</h3>
+            <p>
+              The proposed representation generates flexible warping functions using Gaussian,
+              Laplacian, uniform, and other stochastic coefficient distributions.
+            </p>
+          </div>
         </div>
-
-        <div class="card">
-          <h3>fPCA Modeling</h3>
-          <p>
-            Observed warping functions can be transformed, modeled using functional PCA,
-            and resampled in the transformed space.
-          </p>
+    
+        <div class="application-figure-card">
+          <img src="assets/app_fpca.png" alt="Functional PCA modeling and resampling of warping functions" />
+          <div class="application-figure-content">
+            <h3>fPCA Modeling and Resampling</h3>
+            <p>
+              Observed warping functions are transformed into the linear space, modeled using
+              functional PCA, and resampled to reproduce realistic phase variability.
+            </p>
+          </div>
         </div>
-
-        <div class="card">
-          <h3>Penalized Registration</h3>
-          <p>
-            The representation provides a new penalty term for controlling phase variability
-            during function alignment.
-          </p>
+    
+        <div class="application-figure-card">
+          <img src="assets/app_registration.png" alt="Penalized function registration" />
+          <div class="application-figure-content">
+            <h3>Penalized Registration</h3>
+            <p>
+              The representation provides a new penalty term for function alignment, allowing
+              nonuniform and correlated constraints across the time domain.
+            </p>
+          </div>
         </div>
-
-        <div class="card">
-          <h3>Gradient Optimization</h3>
-          <p>
-            A gradient-based algorithm estimates optimal warping functions under the proposed
-            penalized registration framework.
-          </p>
+    
+        <div class="application-figure-card">
+          <img src="assets/app_boxplot.png" alt="Functional boxplot for warping functions" />
+          <div class="application-figure-content">
+            <h3>Functional Boxplot</h3>
+            <p>
+              Warping functions can be summarized through a boxplot-style visualization that
+              captures centrality, variability, and outlying phase patterns.
+            </p>
+          </div>
         </div>
-
-        <div class="card">
-          <h3>Functional Boxplot</h3>
-          <p>
-            Warping functions are summarized using a boxplot method that captures centrality,
-            variability, and outliers.
-          </p>
+    
+        <div class="application-figure-card">
+          <img src="assets/app_growth.png" alt="Berkeley growth data application" />
+          <div class="application-figure-content">
+            <h3>Growth-Curve Analysis</h3>
+            <p>
+              The method is applied to Berkeley growth curves to model temporal growth-pattern
+              variability and demonstrate practical resampling performance.
+            </p>
+          </div>
         </div>
-
-        <div class="card">
-          <h3>COVID-19 Growth Data</h3>
-          <p>
-            The method identifies states with outlying temporal growth patterns in COVID-19 data.
-          </p>
+    
+        <div class="application-figure-card">
+          <img src="assets/app_covid.png" alt="COVID-19 growth-pattern outlier detection" />
+          <div class="application-figure-content">
+            <h3>COVID-19 Growth Patterns</h3>
+            <p>
+              The framework identifies states with outlying COVID-19 temporal growth patterns,
+              showing its usefulness for real-world functional data analysis.
+            </p>
+          </div>
         </div>
+    
+      </div>
+    
+      <div class="application-note">
+        <strong>Why this matters:</strong> the same statistical representation supports simulation,
+        model-based resampling, registration, visualization, and outlier detection, making it a
+        reusable framework for studying phase variability in functional data.
       </div>
     </section>
 
