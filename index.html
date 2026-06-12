@@ -221,6 +221,120 @@
       font-family: Consolas, Monaco, "Courier New", monospace;
     }
 
+    .framework-diagram {
+      position: relative;
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px 52px;
+    }
+    
+    .framework-step {
+      position: relative;
+      min-height: 220px;
+      padding: 24px 24px 22px;
+      background: linear-gradient(180deg, #ffffff, #f8fbfa);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 10px 26px rgba(47, 93, 80, 0.08);
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    
+    .framework-step:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px rgba(47, 93, 80, 0.15);
+    }
+    
+    .step-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), #5fa892);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 14px;
+    }
+    
+    .step-icon {
+      position: absolute;
+      top: 22px;
+      right: 24px;
+      font-size: 1.8rem;
+      color: var(--accent);
+      opacity: 0.45;
+    }
+    
+    .framework-step h3 {
+      margin: 0 0 12px;
+      font-size: 1.13rem;
+      color: #111827;
+    }
+    
+    .framework-step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.58;
+    }
+    
+    /* Arrows between cards */
+    .framework-step:not(:nth-child(3)):not(:nth-child(6))::after {
+      content: "→";
+      position: absolute;
+      right: -38px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent);
+      font-size: 2.1rem;
+      font-weight: 800;
+    }
+    
+    /* Down arrow from Step 3 to Step 4 */
+    .framework-step:nth-child(3)::after {
+      content: "↴";
+      position: absolute;
+      right: 50%;
+      bottom: -46px;
+      transform: translateX(50%);
+      color: var(--accent);
+      font-size: 2.6rem;
+      font-weight: 800;
+    }
+    
+    .framework-note {
+      margin-top: 28px;
+      padding: 20px 22px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #f4faf7, #ffffff);
+      border: 1px solid #d9ebe4;
+      color: #304b43;
+      font-size: 0.98rem;
+    }
+    
+    /* Mobile version */
+    @media (max-width: 900px) {
+      .framework-diagram {
+        grid-template-columns: 1fr;
+        gap: 26px;
+      }
+    
+      .framework-step:not(:last-child)::after,
+      .framework-step:nth-child(3)::after {
+        content: "↓";
+        position: absolute;
+        right: 50%;
+        bottom: -27px;
+        top: auto;
+        transform: translateX(50%);
+        color: var(--accent);
+        font-size: 1.9rem;
+      }
+    }
+    
     footer {
       margin-top: 60px;
       padding-top: 20px;
@@ -376,53 +490,79 @@
 
     <section id="method">
       <h2>Methodological Framework</h2>
-
-      <div class="grid">
-        <div class="card">
-          <h3>1. Warping Functions</h3>
+    
+      <p>
+        The proposed framework transforms nonlinear time-warping functions into a linear
+        Hilbert-space representation, enabling principled stochastic-process modeling,
+        simulation, registration, and statistical analysis of phase variability.
+      </p>
+    
+      <div class="framework-diagram">
+    
+        <div class="framework-step">
+          <div class="step-badge">1</div>
+          <div class="step-icon">γ</div>
+          <h3>Warping Functions</h3>
           <p>
             Time-warping functions represent phase variability in functional observations.
           </p>
         </div>
-
-        <div class="card">
-          <h3>2. Derivative as Density</h3>
+    
+        <div class="framework-step">
+          <div class="step-badge">2</div>
+          <div class="step-icon">∂</div>
+          <h3>Derivative as Density</h3>
           <p>
             The derivative of a warping function is treated as a probability density function
             on the unit interval.
           </p>
         </div>
-
-        <div class="card">
-          <h3>3. CLR Transformation</h3>
+    
+        <div class="framework-step">
+          <div class="step-badge">3</div>
+          <div class="step-icon">ψ</div>
+          <h3>CLR Transformation</h3>
           <p>
             The centered log-ratio transformation maps the density representation into a linear
             L² subspace.
           </p>
         </div>
-
-        <div class="card">
-          <h3>4. Hilbert-Space Model</h3>
+    
+        <div class="framework-step">
+          <div class="step-badge">4</div>
+          <div class="step-icon">ℋ</div>
+          <h3>Hilbert-Space Model</h3>
           <p>
             The transformed functions are represented using orthonormal basis functions in a
             Hilbert space.
           </p>
         </div>
-
-        <div class="card">
-          <h3>5. Stochastic Process</h3>
+    
+        <div class="framework-step">
+          <div class="step-badge">5</div>
+          <div class="step-icon">𝒢</div>
+          <h3>Stochastic Process</h3>
           <p>
             Gaussian and non-Gaussian stochastic processes can be used to generate flexible
             warping functions.
           </p>
         </div>
-
-        <div class="card">
-          <h3>6. Inverse Mapping</h3>
+    
+        <div class="framework-step">
+          <div class="step-badge">6</div>
+          <div class="step-icon">ψ⁻¹</div>
+          <h3>Inverse Mapping</h3>
           <p>
             The transformed process is mapped back to the original warping-function space.
           </p>
         </div>
+    
+      </div>
+    
+      <div class="framework-note">
+        <strong>Key idea:</strong> by transforming nonlinear warping functions into a linear
+        L²/Hilbert-space structure, the framework makes stochastic-process modeling,
+        functional PCA, penalized registration, and statistical inference much easier to apply.
       </div>
     </section>
 
