@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Yijia Ma | Stochastic Process Representation for Time Warping Functions</title>
+
+  <style>
+    :root {
+      --text: #222;
+      --muted: #666;
+      --light: #f7f8fa;
+      --border: #e5e7eb;
+      --accent: #2f5d50;
+      --accent-dark: #1f4037;
+      --max-width: 980px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #ffffff;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 36px 22px 60px;
+    }
+
+    header {
+      text-align: center;
+      padding: 38px 0 24px;
+    }
+
+    h1 {
+      font-size: 2.35rem;
+      line-height: 1.18;
+      margin: 0 0 14px;
+      font-weight: 750;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .authors {
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    .my-name {
+      font-weight: 800;
+      color: var(--accent-dark);
+    }
+
+    .publication {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 22px 0 10px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: white;
+      font-weight: 600;
+      border: 1px solid var(--accent);
+      transition: 0.18s ease;
+    }
+
+    .button:hover {
+      background: var(--accent-dark);
+      text-decoration: none;
+    }
+
+    .button.secondary {
+      background: white;
+      color: var(--accent);
+    }
+
+    .button.secondary:hover {
+      background: var(--light);
+    }
+
+    .hero-box {
+      background: linear-gradient(180deg, #f4faf7, #ffffff);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 26px;
+      text-align: left;
+    }
+
+    .hero-box strong {
+      color: var(--accent-dark);
+    }
+
+    section {
+      margin-top: 46px;
+    }
+
+    h2 {
+      font-size: 1.55rem;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    h3 {
+      margin-top: 24px;
+      font-size: 1.15rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.035);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .highlight-box {
+      background: var(--light);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-top: 18px;
+    }
+
+    .role-list {
+      margin-top: 14px;
+      padding-left: 20px;
+    }
+
+    .role-list li {
+      margin-bottom: 8px;
+    }
+
+    .teaser {
+      margin: 28px auto 10px;
+      text-align: center;
+    }
+
+    .teaser img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .caption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      padding: 18px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    code {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .grid,
+      .grid.two {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 24px 16px 50px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <header>
+      <h1>A Stochastic Process Representation for Time Warping Functions</h1>
+
+      <div class="subtitle">
+        Statistical methodology for functional data analysis, phase variability, and function registration
+      </div>
+
+      <div class="authors">
+        <span class="my-name">Yijia Ma</span>,
+        Xinyu Zhou,
+        Wei Wu
+      </div>
+
+      <div class="publication">
+        Computational Statistics and Data Analysis, 194, 107941, 2024
+      </div>
+
+      <div class="button-row">
+        <a class="button" href="#" target="_blank">Paper</a>
+        <a class="button secondary" href="https://github.com/YMa2019/warping" target="_blank">Code</a>
+        <a class="button secondary" href="#my-role">My Role</a>
+        <a class="button secondary" href="#citation">Citation</a>
+      </div>
+
+      <div class="hero-box">
+        <p>
+          This project highlights my role as a <strong>statistician and methodological researcher</strong>.
+          I developed a new statistical framework that converts nonlinear time-warping functions
+          into a linear Hilbert-space representation, enabling stochastic-process modeling,
+          penalized function registration, functional boxplots, and outlier detection for phase variability.
+        </p>
+      </div>
+    </header>
+
+    <div class="teaser">
+      <!-- Replace this with a figure exported from the paper, for example Fig. 2 or Fig. 5 -->
+      <img src="assets/warping_teaser.png" alt="Stochastic process representation for time warping functions" />
+      <div class="caption">
+        A stochastic-process framework for generating, modeling, aligning, and summarizing time-warping functions.
+      </div>
+    </div>
+
+    <section id="my-role">
+      <h2>My Role: Statistician and First Author</h2>
+
+      <p>
+        As the first author, I led the statistical methodology, mathematical formulation,
+        simulation design, optimization framework, and applied data analysis. This work reflects
+        my core expertise in functional data analysis, stochastic processes, Hilbert-space methods,
+        statistical computing, and interpretable methodological development.
+      </p>
+
+      <div class="grid two">
+        <div class="card">
+          <h3>Statistical Theory</h3>
+          <p>
+            Developed a linear representation for nonlinear warping functions through an
+            isometric transformation into a Hilbert-space structure.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Computational Methodology</h3>
+          <p>
+            Designed simulation, resampling, penalized registration, gradient-based optimization,
+            and functional boxplot procedures.
+          </p>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <h3>Key contributions</h3>
+        <ul class="role-list">
+          <li>
+            Proposed a stochastic-process representation for time-warping functions.
+          </li>
+          <li>
+            Defined a linear inner-product structure for a constrained warping-function space.
+          </li>
+          <li>
+            Used the centered log-ratio transformation to map warping functions into an
+            L²-based Hilbert subspace.
+          </li>
+          <li>
+            Developed a generative framework that can simulate warping functions using
+            Gaussian or non-Gaussian stochastic processes.
+          </li>
+          <li>
+            Extended the representation to functional PCA-based modeling and resampling.
+          </li>
+          <li>
+            Introduced a new penalty for penalized function registration.
+          </li>
+          <li>
+            Implemented an efficient gradient-based optimization algorithm for registration.
+          </li>
+          <li>
+            Developed functional boxplots for warping functions and applied them to outlier detection.
+          </li>
+          <li>
+            Demonstrated the method through simulations, Berkeley growth data, and COVID-19
+            growth-pattern analysis.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="overview">
+      <h2>Problem Overview</h2>
+
+      <p>
+        In functional data analysis, time-warping functions are used to represent phase variability:
+        differences in timing, alignment, or temporal progression across observed curves. However,
+        warping functions are nonlinear under the conventional L² metric, making direct statistical
+        modeling difficult.
+      </p>
+
+      <p>
+        This paper addresses that challenge by constructing a principled linear representation
+        for time-warping functions. The proposed framework enables stochastic-process modeling,
+        simulation, resampling, penalized function registration, and functional outlier detection.
+      </p>
+    </section>
+
+    <section id="method">
+      <h2>Methodological Framework</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>1. Warping Functions</h3>
+          <p>
+            Time-warping functions represent phase variability in functional observations.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>2. Derivative as Density</h3>
+          <p>
+            The derivative of a warping function is treated as a probability density function
+            on the unit interval.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>3. CLR Transformation</h3>
+          <p>
+            The centered log-ratio transformation maps the density representation into a linear
+            L² subspace.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>4. Hilbert-Space Model</h3>
+          <p>
+            The transformed functions are represented using orthonormal basis functions in a
+            Hilbert space.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>5. Stochastic Process</h3>
+          <p>
+            Gaussian and non-Gaussian stochastic processes can be used to generate flexible
+            warping functions.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>6. Inverse Mapping</h3>
+          <p>
+            The transformed process is mapped back to the original warping-function space.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="applications">
+      <h2>Applications in the Paper</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Stochastic Simulation</h3>
+          <p>
+            The framework generates warping functions under Gaussian, Laplacian, uniform,
+            and other stochastic coefficient distributions.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>fPCA Modeling</h3>
+          <p>
+            Observed warping functions can be transformed, modeled using functional PCA,
+            and resampled in the transformed space.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Penalized Registration</h3>
+          <p>
+            The representation provides a new penalty term for controlling phase variability
+            during function alignment.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Gradient Optimization</h3>
+          <p>
+            A gradient-based algorithm estimates optimal warping functions under the proposed
+            penalized registration framework.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Functional Boxplot</h3>
+          <p>
+            Warping functions are summarized using a boxplot method that captures centrality,
+            variability, and outliers.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>COVID-19 Growth Data</h3>
+          <p>
+            The method identifies states with outlying temporal growth patterns in COVID-19 data.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="results">
+      <h2>Key Results</h2>
+
+      <div class="highlight-box">
+        <p>
+          The proposed representation provides a unified statistical framework for modeling,
+          generating, aligning, summarizing, and detecting outliers in time-warping functions.
+          It transforms a difficult nonlinear object into a structure where conventional statistical
+          tools such as stochastic processes, fPCA, regression, ANOVA, and functional boxplots
+          can be naturally applied.
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Theoretical Contribution</h3>
+          <p>
+            Established an isometric isomorphism between a bounded warping-function space
+            and a linear L² subspace.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Generative Modeling</h3>
+          <p>
+            Enabled stochastic-process-based generation of flexible warping functions.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Registration Improvement</h3>
+          <p>
+            Introduced penalties capable of modeling nonuniform and correlated time-domain
+            constraints.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Outlier Detection</h3>
+          <p>
+            Developed a warping-function boxplot for identifying abnormal phase patterns.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Applied Relevance</h3>
+          <p>
+            Demonstrated the approach on real functional datasets, including growth curves
+            and COVID-19 temporal patterns.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Reusable Code</h3>
+          <p>
+            Programming scripts are available in a public repository accompanying the paper.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills Demonstrated</h2>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Functional Data Analysis</h3>
+          <p>
+            Phase variability, time warping, function registration, functional boxplots,
+            and functional PCA.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Stochastic Processes</h3>
+          <p>
+            Gaussian and non-Gaussian process representations, covariance kernels,
+            basis expansions, and generative modeling.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Hilbert-Space Methods</h3>
+          <p>
+            Inner-product spaces, L² subspaces, orthonormal systems, and isometric mappings.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Optimization</h3>
+          <p>
+            Penalized loss functions, gradient-based algorithms, constrained optimization,
+            and numerical implementation.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Statistical Computing</h3>
+          <p>
+            Simulation studies, resampling, real-data analysis, reproducible code,
+            and visualization.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Applied Statistics</h3>
+          <p>
+            Growth-curve analysis, COVID-19 trajectory analysis, outlier detection,
+            and interpretable statistical methodology.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="code">
+      <h2>Code Availability</h2>
+
+      <p>
+        Programming scripts for the paper are available at:
+      </p>
+
+      <p>
+        <a href="https://github.com/YMa2019/warping" target="_blank">
+          https://github.com/YMa2019/warping
+        </a>
+      </p>
+    </section>
+
+    <section id="citation">
+      <h2>Citation</h2>
+
+      <pre><code>@article{ma2024stochastic,
+  title   = {A stochastic process representation for time warping functions},
+  author  = {Ma, Yijia and Zhou, Xinyu and Wu, Wei},
+  journal = {Computational Statistics and Data Analysis},
+  volume  = {194},
+  pages   = {107941},
+  year    = {2024},
+  publisher = {Elsevier}
+}</code></pre>
+    </section>
+
+    <footer>
+      © 2024 Yijia Ma. Project page highlighting statistical methodology,
+      stochastic processes, and functional data analysis.
+    </footer>
+
+  </div>
+</body>
+</html>
